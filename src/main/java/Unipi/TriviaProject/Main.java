@@ -18,8 +18,9 @@ public class Main {
 		String categ; // Category
 		String type; // Type(multiple or boolean)
 		String diff; // Difficulty of game
-		String nametype;
 		int score = 0; // Score per game
+		int correct =0;
+		double percentage;
 		int maxScore = 0; // Max score
 		boolean q = true; // To check if player has started a game and if he wants to continue with this
 							// settings
@@ -128,6 +129,7 @@ public class Main {
 							if (options[question].equals(result.getCorrectAnswer())) {
 								JOptionPane.showMessageDialog(null, "Correct Answer! ", "Trivia Game",
 										JOptionPane.INFORMATION_MESSAGE);
+								correct++;
 								score = score + 10;
 
 							} else {
@@ -176,9 +178,9 @@ public class Main {
 				}
 				// if he answered all questions, to show the score
 				if (q == true) {
-				
+				percentage=(double)correct/(double)noOfQuestions*100;
 					def = JOptionPane.showOptionDialog(null,
-							"Your score is: " + score, "Trivia Game",
+							"Your score is: " + score+"\n Percentage : "+percentage+" %", "Trivia Game",
 							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
 							gameDefault[0]);
 					// -1 equals close button
