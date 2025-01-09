@@ -24,6 +24,7 @@ public class Main {
 		boolean q = true; // To check if player has started a game and if he wants to continue with this
 							// settings
 
+		final String[] gameDefault = { "OK" };
 		// Whether player wants deafault settings or to play with his own settings
 		String[] gameArch = { "Default Settings", "Custom Settings" };
 		// Class that has constructors for the game settings
@@ -31,8 +32,12 @@ public class Main {
 
 //Opening communication with User
 
-		JOptionPane.showMessageDialog(null, "Hello User!\nWelcome to our Trivia Game", "Trivia Game",
-				JOptionPane.INFORMATION_MESSAGE);
+		int def = JOptionPane.showOptionDialog(null, "Hello User!\nWelcome to our Trivia Game", "Trivia Game",
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault, gameDefault[0]);
+		// -1 equals close button
+		if (def != 0) {
+			proc.close();
+		}
 		// just a boolean so player can start from main menu till he closes the dialog
 
 		boolean aa = true;
@@ -53,8 +58,15 @@ public class Main {
 			} else {
 				// Custom settings
 				// Ask the User how many questions we wants
-				JOptionPane.showMessageDialog(null, "Please enter from 1-50 how many questions you would like to play.",
-						"Trivia Game", JOptionPane.INFORMATION_MESSAGE);
+
+				def = JOptionPane.showOptionDialog(null,
+						"Please enter from 1-50 how many questions you would like to play.", "Trivia Game",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
+						gameDefault[0]);
+				// -1 equals close button
+				if (def != 0) {
+					proc.close();
+				}
 
 				// Setters and getters for the parameters of the game
 				proc.setQuest();
@@ -94,15 +106,14 @@ public class Main {
 
 							String[] options = possibleAnswers.toArray(new String[0]);
 
-							
-							
 							// Console checking
 							// System.out.println(Arrays.toString(options) + "\n");
 
 							// Readying the question with the possible answers that will show up to the
 							// player
-							String quest = "Difficulty: " + result.getDifficulty() + "\nType: " + proc.getNameType(result.getType())
-									+ "\n Category: " + result.getCategory() + "\n Question: " + result.getQuestion();
+							String quest = "Difficulty: " + result.getDifficulty() + "\nType: "
+									+ proc.getNameType(result.getType()) + "\n Category: " + result.getCategory()
+									+ "\n Question: " + result.getQuestion();
 
 							// Console checking, to check the correct answer
 							// System.out.println("Correct Answer: " + result.getCorrectAnswer());
@@ -113,6 +124,7 @@ public class Main {
 									options[0]);
 
 							// If answer correct show to the player + give him 10 points
+							// Close button here no action ,so no mistake to close program
 							if (options[question].equals(result.getCorrectAnswer())) {
 								JOptionPane.showMessageDialog(null, "Correct Answer! ", "Trivia Game",
 										JOptionPane.INFORMATION_MESSAGE);
@@ -127,7 +139,8 @@ public class Main {
 							}
 
 							/*
-							 * Console Checking System.out.println(result.getDifficulty() + " Question: " +
+							 * Console Checking 
+							 * System.out.println(result.getDifficulty() + " Question: " +
 							 * result.getQuestion()); System.out.println("Correct Answer: " +
 							 * result.getCorrectAnswer()); System.out.println("Incorrect Answers: " +
 							 * result.getIncorrectAnswers()); System.out.println("---");
@@ -140,8 +153,22 @@ public class Main {
 						q = false;
 					}
 					// Something went wrong with the api call
+				
 				} catch (IOException e) {
 					System.err.println("Error fetching trivia questions: " + e.getMessage());
+					
+					// After many attempts too fast it broke 
+					q=false;
+					
+					def = JOptionPane.showOptionDialog(null,
+							"Too many attempts in little time. \nBack to main menu." , "Trivia Game",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE, null, gameDefault,
+							gameDefault[0]);
+					// -1 equals close button
+					if (def != 0) {
+						proc.close();
+					}
+					
 				} catch (ArrayIndexOutOfBoundsException e) {
 					// Close the program when user press close button
 					System.err.println("Error : " + e.getMessage());
@@ -149,9 +176,16 @@ public class Main {
 				}
 				// if he answered all questions, to show the score
 				if (q == true) {
-					JOptionPane.showMessageDialog(null, "Your score is: " + score, "Trivia Game",
-							JOptionPane.INFORMATION_MESSAGE);
-
+				
+					def = JOptionPane.showOptionDialog(null,
+							"Your score is: " + score, "Trivia Game",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
+							gameDefault[0]);
+					// -1 equals close button
+					if (def != 0) {
+						proc.close();
+					}
+					
 				}
 
 				// Console Checking
@@ -160,13 +194,19 @@ public class Main {
 				// Checking for a high Score
 				if (maxScore < score) {
 					maxScore = score;
-					JOptionPane.showMessageDialog(null, "New High Score! \n" + maxScore + " !!!", "Trivia Game",
-							JOptionPane.INFORMATION_MESSAGE);
+					def = JOptionPane.showOptionDialog(null,
+							"New High Score! \n" + maxScore + " !!!", "Trivia Game - Max Score",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
+							gameDefault[0]);
+					// -1 equals close button
+					if (def != 0) {
+						proc.close();
+					}
 
 				}
 
 				// restarting score variable and asking whether he wants same game , other
-				// parameeters game or to close it
+				// parameters game or to close it
 				score = 0;
 				if (q == true) {
 					int sameGame = JOptionPane.showOptionDialog(null, "Do you want to play the same game again? ",

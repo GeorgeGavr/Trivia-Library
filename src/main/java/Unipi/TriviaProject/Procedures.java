@@ -17,6 +17,8 @@ public class Procedures {
 	private String selectedId;
 	private String selectedType;
 	private String selectedDiff;
+	final String[] gameDefault = { "OK" };
+	int def;
 
 	// declaring Scanner
 	Scanner keyInp = new Scanner(System.in);
@@ -34,8 +36,7 @@ public class Procedures {
 
 			// Handle cancel or close
 			if (input == null) {
-				JOptionPane.showMessageDialog(null, "Program ends", "Cancelled", JOptionPane.WARNING_MESSAGE);
-				System.exit(0);
+				close();
 
 			}
 
@@ -43,12 +44,27 @@ public class Procedures {
 				noOfQuestions = Integer.parseInt(input);
 
 				if (noOfQuestions > 0 && noOfQuestions <= 50) {
-					JOptionPane.showMessageDialog(null, "You set " + noOfQuestions + " questions.", "Success",
-							JOptionPane.INFORMATION_MESSAGE);
+					
+					 def = JOptionPane.showOptionDialog(null,
+							"You set " + noOfQuestions + " questions.", "Trivia Game - Success",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
+							gameDefault[0]);
+					// -1 equals close button
+					if (def != 0) {
+						close();
+					}
+
 					break;
 				} else {
-					JOptionPane.showMessageDialog(null, "Please enter a number between 1 and 50.", "Invalid Input",
-							JOptionPane.ERROR_MESSAGE);
+					
+					 def = JOptionPane.showOptionDialog(null,
+								"Please enter a number between 1 and 50.", "Trivia Game - Invalid Input",
+								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE, null, gameDefault,
+								gameDefault[0]);
+						// -1 equals close button
+						if (def != 0) {
+							close();
+						}
 				}
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number.", "Error!",
@@ -189,8 +205,15 @@ public class Procedures {
 						break;
 					}
 				}
-				JOptionPane.showMessageDialog(null, "You selected: " + selectedCategory, "Category Selected",
-						JOptionPane.INFORMATION_MESSAGE);
+			
+				def = JOptionPane.showOptionDialog(null,
+						"You selected: " + selectedCategory, "Trivia Game - Category Selected",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameDefault,
+						gameDefault[0]);
+				// -1 equals close button
+				if (def != 0) {
+					close();
+				}
 			} else {
 				close();
 
