@@ -2,6 +2,12 @@ package Unipi.TriviaProject;
 
 import java.util.Scanner;
 import javax.swing.*;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,7 +29,7 @@ public class Procedures {
 	// declaring Scanner
 	Scanner keyInp = new Scanner(System.in);
 	//close program method
-	public void close() {
+	public  void close() {
 		JOptionPane.showMessageDialog(null, "Goodbye!", "Cancelled", JOptionPane.WARNING_MESSAGE);
 		System.exit(0);
 	}
@@ -143,11 +149,13 @@ public class Procedures {
 		}
 	}
 
+
+	
 	public void setCateg() {
 
 		// JSON string brought by api https://opentdb.com/api_category.php
 
-		String jsonString = "{\n" + "    \"trivia_categories\": [\n" + "        {\"id\": 0, \"name\": \"Random\"},\n"
+		/*String jsonString = "{\n" + "    \"trivia_categories\": [\n" + "        {\"id\": 0, \"name\": \"Random\"},\n"
 				+ "        {\"id\": 9, \"name\": \"General Knowledge\"},\n"
 				+ "        {\"id\": 10, \"name\": \"Entertainment: Books\"},\n"
 				+ "        {\"id\": 11, \"name\": \"Entertainment: Film\"},\n"
@@ -169,14 +177,22 @@ public class Procedures {
 				+ "        {\"id\": 31, \"name\": \"Entertainment: Japanese Anime & Manga\"},\n"
 				+ "        {\"id\": 32, \"name\": \"Entertainment: Cartoon & Animations\"}\n" + "    ]\n" + "}";
 
+*/
+		
+		
 		try {
+			String jsonString=TriviaApiClient.Categories();
+	
+			
 			// Parse JSON
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(jsonString);
 			JsonNode categoriesNode = rootNode.get("trivia_categories");
 
 			// Create 2D array
-			String[][] categories = new String[categoriesNode.size()][2];
+			String[][] categories = new String[categoriesNode.size()+1][2];
+			categories[categoriesNode.size()][0]="0";
+			categories[categoriesNode.size()][1]="Random";
 			for (int i = 0; i < categoriesNode.size(); i++) {
 				JsonNode category = categoriesNode.get(i);
 				categories[i][0] = String.valueOf(category.get("id"));

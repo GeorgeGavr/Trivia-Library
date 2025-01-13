@@ -11,8 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args)  {
 
 		int noOfQuestions; // Number of questions
 		String categ; // Category
@@ -31,6 +32,7 @@ public class Main {
 		// Class that has constructors for the game settings
 		Procedures proc = new Procedures();
 
+		
 //Opening communication with User
 
 		int def = JOptionPane.showOptionDialog(null, "Hello User!\nWelcome to our Trivia Game", "Trivia Game",
@@ -108,6 +110,8 @@ public class Main {
 							String[] options = possibleAnswers.toArray(new String[0]);
 
 							// Console checking
+							//System.out.println(options.length+ " \n");
+							
 							// System.out.println(Arrays.toString(options) + "\n");
 
 							// Readying the question with the possible answers that will show up to the

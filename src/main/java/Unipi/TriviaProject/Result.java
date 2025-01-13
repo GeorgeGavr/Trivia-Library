@@ -3,6 +3,8 @@ package Unipi.TriviaProject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
+
+
 public class Result {
 
     private String type;
@@ -21,7 +23,7 @@ public class Result {
         this.type = type;
         this.difficulty = difficulty;
         this.category = category;
-        this.question = question;
+        this.question =question;
         this.correctAnswer = correctAnswer;
         this.incorrectAnswers = incorrectAnswers;
     }

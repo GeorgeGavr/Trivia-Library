@@ -49,4 +49,20 @@ public class TriviaApiClient {
 
         return objectMapper.readValue(jsonResponse, OpenTrivia.class);
     }
+    
+	public static String Categories() throws IOException {
+		
+		final String BASE_URL = "https://opentdb.com/api_category.php";
+
+        //get request
+        HttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(BASE_URL);
+
+        //obtain response
+        HttpResponse response = client.execute(request);
+        String jsonResponse = EntityUtils.toString(response.getEntity());
+        return jsonResponse;
+	}
 }
+
+
