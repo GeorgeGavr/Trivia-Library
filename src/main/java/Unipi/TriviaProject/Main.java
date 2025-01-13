@@ -214,6 +214,7 @@ public class Main {
 				// restarting score variable and asking whether he wants same game , other
 				// parameters game or to close it
 				score = 0;
+				correct=0;
 				if (q == true) {
 					int sameGame = JOptionPane.showOptionDialog(null, "Do you want to play the same game again? ",
 							"Trivia Game", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
